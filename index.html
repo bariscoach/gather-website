@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gather. | Burlington, ON</title>
+  <meta name="description" content="A monthly women's event series in Burlington, ON for women in their 30s and 40s. Workshops, wine, and women who get it.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --rose:       #C9706A;
+      --gold:       #C8A87A;
+      --cream:      #FAF6F1;
+      --light-rose: #F3E0DC;
+      --charcoal:   #2C2C2C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--charcoal);
+      background: var(--cream);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 30px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease, opacity 0.22s ease;
+      text-decoration: none;
+      border: 1.5px solid transparent;
+      white-space: nowrap;
+    }
+
+    .btn-rose {
+      background: var(--rose);
+      color: #fff;
+      border-color: var(--rose);
+    }
+    .btn-rose:hover { background: #b85e58; border-color: #b85e58; }
+
+    .btn-outline-dark {
+      background: transparent;
+      color: var(--charcoal);
+      border-color: var(--charcoal);
+    }
+    .btn-outline-dark:hover { background: var(--charcoal); color: #fff; }
+
+    /* ─── FADE-IN ─── */
+    .fi {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fi.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── NAVIGATION ─── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      height: 68px;
+      background: rgba(250, 246, 241, 0.93);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201, 112, 106, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      transition: box-shadow 0.35s ease;
+    }
+    #nav.scrolled {
+      box-shadow: 0 4px 28px rgba(44, 44, 44, 0.07);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--charcoal);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-cta {
+      padding: 10px 22px;
+      font-size: 11px;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 48px 80px;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 28px;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(100px, 18vw, 176px);
+      font-weight: 600;
+      color: var(--charcoal);
+      line-height: 0.88;
+      letter-spacing: -0.05em;
+      margin-bottom: 40px;
+    }
+
+    .hero-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 36px;
+      opacity: 0.7;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(22px, 3.2vw, 34px);
+      font-weight: 400;
+      color: var(--charcoal);
+      max-width: 560px;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .hero-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(13px, 1.5vw, 15px);
+      color: var(--charcoal);
+      opacity: 0.52;
+      max-width: 380px;
+      line-height: 1.7;
+      margin-bottom: 52px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      color: var(--charcoal);
+      opacity: 0.25;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* ─── WHAT IS GATHER ─── */
+    #what {
+      background: var(--light-rose);
+      padding: 108px 0;
+    }
+
+    .eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 56px;
+      display: block;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 64px;
+    }
+
+    .col-icon {
+      display: block;
+      font-size: 16px;
+      color: var(--rose);
+      margin-bottom: 20px;
+    }
+
+    .col-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 23px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .col-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--charcoal);
+      opacity: 0.72;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    #how {
+      background: var(--cream);
+      padding: 108px 0;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 54px);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin-bottom: 72px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 44px;
+    }
+
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 76px;
+      font-weight: 600;
+      color: var(--rose);
+      opacity: 0.15;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .step-text {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--charcoal);
+      opacity: 0.62;
+    }
+
+    /* ─── UPCOMING EVENTS ─── */
+    #events {
+      background: var(--light-rose);
+      padding: 108px 0;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .event-card {
+      background: var(--cream);
+      padding: 48px 44px;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.3s ease;
+    }
+    .event-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(44, 44, 44, 0.08);
+    }
+
+    .event-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .event-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 1.08;
+      margin-bottom: 14px;
+    }
+
+    .event-desc {
+      font-size: 14px;
+      line-height: 1.72;
+      color: var(--charcoal);
+      opacity: 0.62;
+      margin-bottom: 36px;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--cream);
+      padding: 108px 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 88px;
+      align-items: center;
+    }
+
+    .about-img {
+      background: var(--light-rose);
+      aspect-ratio: 3/4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      color: var(--rose);
+      opacity: 0.45;
+    }
+
+    .about-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .about-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(30px, 3.8vw, 46px);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+    }
+
+    .about-text {
+      font-size: 15px;
+      line-height: 1.88;
+      color: var(--charcoal);
+      opacity: 0.70;
+    }
+
+    /* ─── WAITLIST ─── */
+    #waitlist {
+      background: var(--rose);
+      padding: 108px 0;
+      text-align: center;
+    }
+
+    .wl-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 9vw, 88px);
+      font-weight: 600;
+      color: #fff;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+    }
+
+    .wl-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #fff;
+      opacity: 0.78;
+      max-width: 360px;
+      margin: 0 auto 48px;
+      line-height: 1.65;
+    }
+
+    .wl-form-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .wl-form {
+      display: flex;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .wl-input {
+      flex: 1;
+      padding: 17px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      background: #fff;
+      color: var(--charcoal);
+      border: none;
+      outline: none;
+      min-width: 0;
+    }
+    .wl-input::placeholder {
+      color: var(--charcoal);
+      opacity: 0.36;
+    }
+
+    .wl-submit {
+      padding: 17px 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--charcoal);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .wl-submit:hover { opacity: 0.80; }
+
+    .wl-thanks {
+      display: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      color: #fff;
+      margin-top: 4px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--charcoal);
+      padding: 44px 48px 36px;
+    }
+
+    .footer-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 24px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(250, 246, 241, 0.1);
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--cream);
+    }
+
+    .footer-loc {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--cream);
+      opacity: 0.4;
+      margin-left: 10px;
+    }
+
+    .footer-ig {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--cream);
+      opacity: 0.55;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .footer-ig:hover { opacity: 1; }
+
+    .footer-copy {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: var(--cream);
+      opacity: 0.28;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1000px) {
+      .container { padding: 0 36px; }
+      #nav { padding: 0 36px; }
+      .three-col { grid-template-columns: 1fr; gap: 44px; }
+      .steps { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .about-grid { grid-template-columns: 1fr; gap: 52px; }
+      .about-img { max-width: 340px; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 24px; }
+      #nav { padding: 0 24px; }
+      #hero { padding: 110px 24px 72px; }
+      footer { padding: 40px 24px 32px; }
+      .steps { grid-template-columns: 1fr; gap: 36px; }
+      .hero-btns { flex-direction: column; align-items: center; width: 100%; }
+      .hero-btns .btn { width: 100%; max-width: 300px; }
+      .wl-form { flex-direction: column; }
+      .wl-input { width: 100%; }
+      .footer-row { flex-direction: column; gap: 14px; text-align: center; }
+      .event-card { padding: 36px 28px; }
+    }
+
+    @media (max-width: 420px) {
+      .nav-logo { font-size: 22px; }
+      .nav-cta { padding: 8px 16px; font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAVIGATION ─── -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">gather.</a>
+    <a href="#waitlist" class="btn btn-rose nav-cta">Join the waitlist</a>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section id="hero">
+    <p class="hero-eyebrow fi" style="transition-delay: 0.05s">Burlington, ON &nbsp;✦&nbsp; Monthly events</p>
+    <h1 class="hero-name fi" style="transition-delay: 0.15s">gather.</h1>
+    <div class="hero-divider fi" style="transition-delay: 0.3s"></div>
+    <p class="hero-tagline fi" style="transition-delay: 0.4s">Where women in their 30s &amp; 40s finally have somewhere to be.</p>
+    <p class="hero-sub fi" style="transition-delay: 0.52s">Monthly evenings in Burlington, ON — workshops, wine, and women who get it.</p>
+    <div class="hero-btns fi" style="transition-delay: 0.65s">
+      <a href="#waitlist" class="btn btn-rose">Join the waitlist</a>
+      <a href="#what" class="btn btn-outline-dark">Learn more</a>
+    </div>
+    <span class="scroll-hint">scroll</span>
+  </section>
+
+  <!-- ─── WHAT IS GATHER ─── -->
+  <section id="what">
+    <div class="container">
+      <span class="eyebrow fi">what is gather.</span>
+      <div class="three-col">
+        <div class="fi" style="transition-delay: 0.05s">
+          <span class="col-icon">✦</span>
+          <h3 class="col-title">A different concept every month</h3>
+          <p class="col-text">Candle making one month, a sommelier the next, a therapist on boundaries after that. Always something worth leaving the house for.</p>
+        </div>
+        <div class="fi" style="transition-delay: 0.18s">
+          <span class="col-icon">✦</span>
+          <h3 class="col-title">Real connection, not networking</h3>
+          <p class="col-text">20 to 30 women in a room who actually want to meet each other. Good drinks, good food, no awkward business card energy.</p>
+        </div>
+        <div class="fi" style="transition-delay: 0.31s">
+          <span class="col-icon">✦</span>
+          <h3 class="col-title">Right here, not in Toronto</h3>
+          <p class="col-text">Everything you'd drive an hour for, happening 10 minutes from your house. No commute. No parking. Just show up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── HOW IT WORKS ─── -->
+  <section id="how">
+    <div class="container">
+      <span class="eyebrow fi">how it works</span>
+      <h2 class="section-title fi">Simple, by design.</h2>
+      <div class="steps">
+        <div class="fi" style="transition-delay: 0.05s">
+          <div class="step-num">01</div>
+          <h3 class="step-title">We announce the concept</h3>
+          <p class="step-text">Each month we reveal a new theme a few weeks ahead. Anticipation is part of it.</p>
+        </div>
+        <div class="fi" style="transition-delay: 0.16s">
+          <div class="step-num">02</div>
+          <h3 class="step-title">You grab a ticket</h3>
+          <p class="step-text">Events are 20–30 women, intentionally kept small. Tickets usually $45–65. They go fast.</p>
+        </div>
+        <div class="fi" style="transition-delay: 0.27s">
+          <div class="step-num">03</div>
+          <h3 class="step-title">You show up</h3>
+          <p class="step-text">6–9 PM on a weekday evening. Workshop, drinks, food, conversation. That's it.</p>
+        </div>
+        <div class="fi" style="transition-delay: 0.38s">
+          <div class="step-num">04</div>
+          <h3 class="step-title">You leave with more than you came with</h3>
+          <p class="step-text">New skills, new people, new plans to come back. Usually all three.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── UPCOMING EVENTS ─── -->
+  <section id="events">
+    <div class="container">
+      <span class="eyebrow fi">upcoming events</span>
+      <h2 class="section-title fi">What's coming up.</h2>
+      <div class="events-grid">
+        <div class="event-card fi">
+          <span class="event-tag">Coming Soon</span>
+          <h3 class="event-name">our first gather.</h3>
+          <p class="event-desc">Details dropping soon. Get on the list to hear first.</p>
+          <a href="#waitlist" class="btn btn-rose">Join the waitlist</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img fi">✦</div>
+        <div class="fi" style="transition-delay: 0.18s">
+          <span class="about-eyebrow">about us</span>
+          <h2 class="about-heading">We started this because we needed it.</h2>
+          <p class="about-text">We're two women in our late thirties living in Burlington, doing all the things — careers, kids, the group chats we're always a day late to. The events we actually wanted to go to kept happening in Toronto. So we built something here instead.<br><br>gather. is what we made for ourselves, and we think you'll want it too.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WAITLIST ─── -->
+  <section id="waitlist">
+    <div class="container">
+      <h2 class="wl-heading fi">Be the first<br>to know.</h2>
+      <p class="wl-sub fi" style="transition-delay: 0.14s">Event concepts, ticket drops, and things worth leaving the house for.</p>
+      <div class="fi" style="transition-delay: 0.28s">
+        <div class="wl-form-wrap" id="wl-form-wrap">
+          <form
+            action="https://app.kit.com/forms/9117377/subscriptions"
+            method="post"
+            class="wl-form"
+          >
+            <input type="hidden" name="redirect_to" value="https://gather-website-seven.vercel.app/?subscribed=true">
+            <input
+              class="wl-input"
+              type="email"
+              name="email_address"
+              placeholder="your@email.com"
+              aria-label="Email address"
+              required
+            >
+            <button class="wl-submit" type="submit">I'm in</button>
+          </form>
+        </div>
+        <div style="text-align: center;">
+          <p class="wl-thanks" id="wl-thanks">You're on the list. &nbsp;✦</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-row">
+        <div>
+          <span class="footer-logo">gather.</span>
+          <span class="footer-loc">| Burlington, ON</span>
+        </div>
+        <a class="footer-ig" href="https://instagram.com/gatherwomen" target="_blank" rel="noopener">@gatherwomen</a>
+      </div>
+      <p class="footer-copy">© 2025 gather. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ── Nav scroll shadow
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 12);
+    }, { passive: true });
+
+    // ── Fade-in on scroll (IntersectionObserver)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.fi').forEach(el => observer.observe(el));
+
+    // ── Hero elements animate in on load (not on scroll)
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('#hero .fi').forEach(el => {
+        // Double rAF ensures transition plays after initial render
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('in')));
+      });
+    });
+
+    // ── Waitlist form submit
+    // Show thank you if redirected back from Kit with ?subscribed=true
+    if (window.location.search.includes('subscribed=true')) {
+      document.getElementById('wl-form-wrap').style.display = 'none';
+      document.getElementById('wl-thanks').style.display = 'block';
+      // Clean the URL without reloading
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+
+    // ── Smooth scroll for "Learn more" (belt and suspenders for older Safari)
+    document.querySelector('a[href="#what"]').addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('what').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
